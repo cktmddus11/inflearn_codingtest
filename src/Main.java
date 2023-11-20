@@ -6,167 +6,169 @@ public class Main {
     public static void main(String[] args) {
         Main t = new Main();
         Scanner in = new Scanner(System.in);
-        String count = in.nextLine();
-        System.out.print(t.solution10(count));
-    }
-
-    // 1번 문자 찾기
-    private int solution(String str, char t) {
-        int answer = 0;
-        str = str.toLowerCase();
-        t = Character.toLowerCase(t);
-//        for (int i =0; i<str.length();i++){
-//            if (str.charAt(i) == t)
-//                answer++;
+        int n = in.nextInt();
+        int[][] arr = new int[n][n];
+//        int[] arr2 = new int[n];
+        for (int i = 0 ; i < n; i++){
+            for (int j =0; j < n; j++)
+                arr[i][j] = in.nextInt();
+        }
+//        for (int i = 0 ; i < n; i++){
+//            arr2[i] = in.nextInt();
 //        }
-        for (char ch : str.toCharArray()) {
-            if (ch == t)
-                answer++;
-        }
-        return answer;
+        int test = t.solution9(n,arr);
+        System.out.print(test);
     }
 
-    // 2번 대소문자 변환
-    private String solution(String str) {
-        String answer = "";
-        for (char ch : str.toCharArray()) {
-//            if (Character.isLowerCase(ch)) answer += Character.toUpperCase(ch);
-//            else answer += Character.toLowerCase(ch);
-            // 아스키코드로 비교할 떄, 대문자를 소문자로 32차이
-            if (ch >= 65 && ch <= 90) answer += (ch - 32);
-            else answer += (ch + 32);
-        }
-
-        return answer;
-    }
-
-    // 3번 문장속 단어
-    private String solution3(String str) {
-        String answer = "";
-        int m = Integer.MIN_VALUE;
-//        for (String data : list){
-//            int length = data.length();
-//            if (length > m){
-//                m = length;
-//                answer = data;
-//            }
-//        }
-        int pos = 0;
-        while ((pos = str.indexOf(" ")) != -1) {
-            String tmp = str.substring(0, pos);
-            int len = tmp.length();
-            if (len > m) {
-                m = len;
-                answer = tmp;
-            }
-            str.substring(pos + 1);
-        }
-        if (str.length() > m) answer = str;
-        return answer;
-    }
-    // 단어 뒤집기
-    private ArrayList<String> solution4(int n, String[] str) {
-        ArrayList<String> answer = new ArrayList<>();
-        for (String x : str) {
-            char[] s = x.toCharArray();
-            int lt = 0;
-            int rt = s.length - 1;
-            while (lt < rt) {
-                char tmp = s[lt];
-                s[lt] = s[rt];
-                s[rt] = tmp;
-                lt++;
-                rt--;
-            }
-            answer.add(String.valueOf(s));
-        }
-        return answer;
-    }
-    // 중복 문자 제거
-    private String solution5(String str) {
-        String answer = "";
-        // indexof는 문자가 발견된 첫 인덱스만을 리턴한다
-        // 그래서 중복제거할때 사용하기 용이하다
-        for (int i = 0; i < str.length(); i++) {
-            if (str.indexOf(str.charAt(i)) == i)
-                answer += str.charAt(i);
-        }
-        return answer;
-    }
-    // 회문 문자열
-    private String solution6(String str) {
-        str = str.toLowerCase();
-        int lt = 0;
-        int rt = str.length() -1;
-        while(lt <= rt){
-            if (str.charAt(lt) != str.charAt(rt))
-                return "NO";
-            lt++;
-            rt--;
-        }
-        return "YES";
-    }
-    // 팰린드롬 replaceAll 정규식 사영
-    private String solution7(String str){
-        //replaceAll을 통해서 정규식 사용가능
-        //[^A-Z] A,Z가 아닌 모든 값들을 빈값으로 변경
-        // 문자열을 소문자로 변경하여 정규식으로 소문자를 제외한 모든 문자를 빈값으로 만듬
-        str = str.toLowerCase().replaceAll("[^a-z]","");
-        return solution6(str);
-    }
-    private String solution8(String str){
-        int answer = 0;
-        // char 값이 48이면 '0' 57이면 '9' 이다
-        for (char ch : str.toCharArray()){
-//            if (Character.isDigit(ch))
-            // Charter 클래스에서 isDigit를 통해서 숫자인지 알수 있음
-            if (ch >= 48 && ch <= 57){
-                answer = answer * 10 + (ch - 48);
-            }
-        }
-        return String.valueOf(answer);
-    }
-    // 문자 거리
-    private ArrayList<Integer> solution9(String str){
+    // 1번 큰수 출력하기
+    public ArrayList<Integer> solution1(int n, int[] arr){
         ArrayList<Integer> answer = new ArrayList<>();
-        str = str.toLowerCase();
-        String s = str.split(" ")[0];
-        char t = str.split(" ")[1].charAt(0);
-        for (int i =0; i < s.length(); i++){
-            int count2 = Integer.MAX_VALUE;
-            for (int j = 0; j < s.length(); j++){
-                if (s.charAt(j) == t){
-                    int count1 = Math.abs(j - i);
-                    if (count2 > count1){
-                        count2 = count1;
-                    }
-                }
-            }
-            answer.add(count2);
+        answer.add(arr[0]);
+        for (int i =1; i < n; i++){
+          if (arr[i] > arr[i-1])
+              answer.add(arr[i]);
         }
         return answer;
     }
-    // 문자열 압축
-    private String solution10(String str){
-        StringBuilder answer = new StringBuilder();
-        char tmp = str.charAt(0);
+    // 2번 보이는 학생
+    private int solution2(int n, int[] arr){
         int count = 0;
-        for (int i = 0; i < str.length(); i++){
-            if (tmp == str.charAt(i)){
+        int max = Integer.MIN_VALUE;
+        for (int i =0; i < n; i++){
+            if (arr[i] > max){
                 count++;
-            }
-            else{
-                answer.append(tmp);
-                if (count > 1) {
-                    answer.append(count);
-                    count = 1;
-                }
-                tmp = str.charAt(i);
+                max = arr[i];
             }
         }
-        answer.append(tmp);
-        if (count > 1)
-            answer.append(count);
-        return answer.toString();
+        return count;
+    }
+    // 3번 가위 바위 보
+    private ArrayList<String> solution3(int n, int[] play1, int[] play2){
+        ArrayList<String> answer = new ArrayList<>();
+        for (int i = 0; i < n; i++){
+            if (Math.abs(play1[i]-play2[i]) == 2){
+                if (play1[i]-play2[i] > 0) answer.add("B");
+                else  answer.add("A");
+            }
+            else if (play1[i] > play2[i]) answer.add("A");
+            else if (play1[i] == play2[i]) answer.add("D");
+            else answer.add("B");
+        }
+        return answer;
+    }
+    // 4번 피보나치
+    private ArrayList<Integer> solution4(int n) {
+        ArrayList<Integer> answer = new ArrayList<>();
+        int ind1 = 1;
+        int ind2 = 1;
+        answer.add(ind1);
+        answer.add(ind2);
+        for (int i = 1; i < n - 1; i++) {
+            ind2 = answer.get(i-1) + ind2;
+            answer.add(ind2);
+        }
+        return answer;
+    }
+    // 5번 소수 구하기
+    private Integer solution5(int n){
+        int answer = 0;
+        int[] data =  new int[n+1];
+        for (int i = 2; i <= n; i++){
+            if (data[i] == 0){
+                answer++;
+                for (int j = i; j <=n; j = j+i)
+                    data[j] = 1;
+            }
+        }
+        return answer;
+    }
+    // 6번 뒤집은 소수
+    private ArrayList<Integer> solution6(int n, int[] arr){
+        ArrayList<Integer> answer = new ArrayList<>();
+        for (int i = 0; i < n; i++){
+            int data = reverseInt(arr[i]);
+            boolean isDecimal = true;
+            for (int j = 2; j < data; j++){
+                if (data % j == 0){
+                    isDecimal = false;
+                    break;
+                }
+            }
+            if (isDecimal && data != 1)
+                answer.add(data);
+        }
+        return answer;
+    }
+    private int reverseInt(int n){
+        int answer = 0;
+        while (n != 0){
+            answer = answer *10 + n % 10;
+            n /= 10;
+        }
+        return answer;
+    }
+    // 7번 점수 계산
+    private int solution7(int n, int[] arr){
+        int answer = 0;
+        int count = 0;
+        for (int i = 0 ; i < n; i++){
+            if (arr[i] == 1) count++;
+            else count = 0;
+            answer += count;
+        }
+        return answer;
+    }
+    // 8번 등수 구하기
+    private int[] solution8(int n, int[] arr){
+        int[] answer = new int[n];
+        for (int i = 0; i < n; i ++){
+            int tmp = arr[i];
+            answer[i]++;
+            for (int j = 0; j < n; j++){
+                if (i == j) continue;
+                else if(tmp > arr[j]) answer[j]++;
+            }
+        }
+        return answer;
+    }
+    private int solution9(int n, int[][]arr){
+        int answer = Integer.MIN_VALUE;
+        int a = 0;
+        int b = 0;
+        int c = 0;
+        int d = 0;
+        for (int i = 0 ; i < n; i ++){
+            boolean isB = true;
+            for (int j = 0; j < n; j++){
+                a += arr[i][j];
+                if (isB){
+                    b+= arr[i][j];
+                    isB = false;
+                }
+                if (i+j == n-1 ) c+= arr[i][j];
+                if (i==j) d+= arr[i][j];
+            }
+            if (a > b){
+                if (a > c){
+                    answer = Math.max(a, d);
+                }
+                else {
+                    answer = Math.max(c,d);
+                }
+            } else{
+                if (b > c){
+                    answer = Math.max(b,d);
+                }
+                else{
+                    answer = Math.max(c,d);
+                }
+            }
+
+            if (answer == a) a = 0;
+            else if (answer == b) b=0;
+            else if (answer == c) c = 0;
+            else d = 0;
+        }
+        return answer;
     }
 }
