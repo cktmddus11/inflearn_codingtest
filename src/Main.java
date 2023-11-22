@@ -16,7 +16,7 @@ public class Main {
 //        for (int i = 0 ; i < n; i++){
 //            arr2[i] = in.nextInt();
 //        }
-        int test = t.solution9(n,arr);
+        int test = t.solution10(n,arr);
         System.out.print(test);
     }
 
@@ -131,44 +131,48 @@ public class Main {
         }
         return answer;
     }
+    // 9번 격자판 최대합
     private int solution9(int n, int[][]arr){
         int answer = Integer.MIN_VALUE;
         int a = 0;
         int b = 0;
         int c = 0;
         int d = 0;
+        boolean isDiagonalLine = true;
         for (int i = 0 ; i < n; i ++){
-            boolean isB = true;
+            a= 0; b=0;
             for (int j = 0; j < n; j++){
+                if (isDiagonalLine){
+                    c += arr[j][j];
+                    d += arr[j][n-1-j];
+                }
                 a += arr[i][j];
-                if (isB){
-                    b+= arr[i][j];
-                    isB = false;
-                }
-                if (i+j == n-1 ) c+= arr[i][j];
-                if (i==j) d+= arr[i][j];
+                b += arr[j][i];
             }
-            if (a > b){
-                if (a > c){
-                    answer = Math.max(a, d);
-                }
-                else {
-                    answer = Math.max(c,d);
-                }
-            } else{
-                if (b > c){
-                    answer = Math.max(b,d);
-                }
-                else{
-                    answer = Math.max(c,d);
-                }
-            }
-
-            if (answer == a) a = 0;
-            else if (answer == b) b=0;
-            else if (answer == c) c = 0;
-            else d = 0;
+            if (answer > a) answer = Math.max(answer,b);
+            else answer = Math.max(a,b);
+            isDiagonalLine = false;
         }
+        if (answer > c) answer = Math.max(answer,d);
+        else answer = Math.max(c,d);
+        return answer;
+    }
+    // 10번 봉우리
+    private int solution10(int n, int[][]arr){
+        int answer = Integer.MIN_VALUE;
+        int[][] temp = new int[n+2][n+2];
+        for (int i = 0 ; i < n; i ++){
+            for (int j = 0; j < n; j++){
+                temp[i+1][j+1] = arr[i][j];
+            }
+        }
+        for (int i = 1 ; i < n+1; i ++){
+            for (int j = 1; j < n+1; j++){
+                int tmp = temp[i][j];
+                if (temp[i-1][j] < tmp  && temp[i+1][j] < tmp && temp[i][j-1] < tmp && temp[i][j+1] < tmp) answer++;
+            }
+        }
+
         return answer;
     }
 }
