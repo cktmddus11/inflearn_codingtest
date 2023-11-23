@@ -1,5 +1,6 @@
 package section1.problem10.sycha;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Scanner;
  * DATE              AUTHOR             NOTE
  * -----------------------------------------------------------
  * 2023-11-20        Cha       최초 생성
- *
+ * <p>
  * 10. 가장 짧은 문자거리
  * 설명
  * 한 개의 문자열 s와 문자 t가 주어지면
@@ -24,23 +25,41 @@ public class Solution1 {
         String str[] = scan.nextLine().split(" ");
 
         String input1 = str[0];
-        String input2 = str[1];
+        char input2 = str[1].charAt(0);
 
-        String answer = solution(input1, input2);
-        System.out.println(answer);
+        int answer[] = solution(input1, input2);
+        for (int a : answer) {
+            System.out.print(a + " ");
+        }
     }
 
-    private static String solution(String input1, String input2) {
+    private static int[] solution(String input1, char input2) {
         StringBuilder sb = new StringBuilder();
-
         int arr[] = new int[input1.length()];
-        for(int i  = 0;i<arr.length;i++){
-            String temp = input1.substring(0, i + 1);
-            arr
+
+        int p = 1000;
+        for (int i = 0; i < arr.length; i++) {
+            if (input1.charAt(i) == input2) {
+                p = 0;
+            } else {
+                p++;
+            }
+            arr[i] = p;
         }
+        //  System.out.println(Arrays.toString(arr));
+        p = 1000;
 
 
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (input1.charAt(i) == input2) {
+                p = 0;
+            } else {
+                p++;
+                arr[i] = Math.min(arr[i], p);  // (a <= b) ? a : b;
+            }
+        }
+      //  System.out.println(Arrays.toString(arr));
 
-        return sb.toString();
+        return arr;
     }
 }
