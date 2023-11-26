@@ -38,14 +38,14 @@ public class Solution1 {
         char temp = str.charAt(0);
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
-            if (c == temp) {
+            if (c == temp) { // 이전문자와 현재문제가 같으면 p를 증감.
                 p++;
-            } else {
-                sb.append(temp);
-                if (p > 1) {
+            } else {  // 이전문자와 현재문자가 다르면  이전문자 count 종료 로직.
+                sb.append(temp); // 이전문자 누적
+                if (p > 1) {  // 이전문자가 한개 이상이면 개수도  누적함.
                     sb.append(p);
                 }
-                p = 1;
+                p = 1; // 다시 count를 초기화한다
             }
             temp = str.charAt(i);
         }
