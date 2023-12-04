@@ -1,0 +1,50 @@
+package section3.problem3;
+
+import java.util.Scanner;
+
+/**
+ * packageName    : section3.problem3
+ * fileName       : Solution1
+ * author         : Cha
+ * date           : 2023-12-04
+ * description    :
+ * ===========================================================
+ * DATE              AUTHOR             NOTE
+ * -----------------------------------------------------------
+ * 2023-12-04        Cha       최초 생성
+ *
+ * => N번의 반복만 발생하도록 풀기
+ */
+public class Solution3 {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt();
+        int k = scan.nextInt();
+ 
+        int arr[] = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = scan.nextInt();
+        }
+        int answer = solution(arr, n, k);
+        System.out.println(answer);
+    }
+
+    private static int solution(int[] arr, int n, int k) {
+        int answer, sum=0;
+        for(int i=0; i<k; i++) sum+=arr[i];
+        answer=sum;
+        for(int i=k; i<n; i++){
+            sum+=(arr[i]-arr[i-k]);
+            answer=Math.max(answer, sum);
+        }
+
+
+
+
+
+
+
+               return answer;
+    }
+}

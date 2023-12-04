@@ -1,4 +1,4 @@
-package section2.program9;
+package section2.problem9;
 
 import java.util.Scanner;
 
