@@ -12,6 +12,8 @@ import java.util.Scanner;
  * DATE              AUTHOR             NOTE
  * -----------------------------------------------------------
  * 2023-12-31        Cha       최초 생성
+ *
+ * 6. 최대 길이 연속부분수열
  */
 public class Solution1 {
     public static void main(String[] args) {
