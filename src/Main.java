@@ -1,4 +1,6 @@
+
 import java.util.*;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -9,6 +11,7 @@ public class Main {
         int[] arr = new int[n];
         for (int i =0; i < n; i++)
             arr[i] = in.nextInt();
-    }
+        System.out.print(test);
 
+    }
 }
