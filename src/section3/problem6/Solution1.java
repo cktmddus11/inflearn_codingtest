@@ -27,10 +27,27 @@ public class Solution1 {
         int answer = solution(n, k, arr);
         System.out.println(answer);
     }
-    public static int solution(int n, int m, int[] arr ) {
+    public static int solution(int n, int k, int[] arr ) {
         int answer = 0;
         int sum = 0;
         int lt = 0;
+
+        int len = 0;
+        int cng = 0;
+        for(int rt = 0;rt<n;rt++){
+          /*  if {
+                if(len <= rt){
+
+                }
+            }*/
+            while(cng <= k){
+                if(arr[rt] == 0){
+                    arr[rt] = 1;
+                }
+            }
+            lt = rt;
+        }
+
         return 0;
     }
 }
