@@ -1,4 +1,4 @@
-package section6;
+package section6.problem9;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -14,7 +14,7 @@ import java.util.Scanner;
  * -----------------------------------------------------------
  * 2024-02-11        Cha       최초 생성
  */
-public class Solution9 {
+public class Solution1 {
     public static void main(String[] args) {
       /*  int N = 9;// DVD 곡 개수
         int M = 3; // DVD 개수
@@ -57,15 +57,8 @@ public class Solution9 {
         }
 
         int middle = (left + right) / 2;// (left + right) % 2 > 0 ? ((left = right) / 2) +1 : (left + right) /2;
-        int cnt = 1;
-        int sum = 0;
-        for (int i = 0; i < arr.length; i++) {
-            sum += arr[i];
-            if (sum > middle) {
-                sum = arr[i];
-                cnt++;
-            }
-        }
+        int cnt = count(arr, middle);
+
         if (cnt <= m) { // 3 장안에 담을 수 있으면
             answer = answer != 0 ? Math.min(answer, middle) : middle;  // (a <= b) ? a : b
             right = middle - 1;
@@ -75,5 +68,18 @@ public class Solution9 {
         }
       //  System.out.println("left = "+left+", right = "+right);
         return binarySearch(answer, left, right, arr, m);
+    }
+
+    private static int count(int[] arr, int capacity) {
+        int cnt = 1;
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+            if (sum > capacity) {
+                sum = arr[i];
+                cnt++;
+            }
+        }
+        return cnt;
     }
 }
